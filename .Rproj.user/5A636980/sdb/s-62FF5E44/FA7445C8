@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "\n#load raw data\ntrain <- read.csv(\"train.csv\", header = TRUE)\ntest <- read.csv(\"test.csv\", header = TRUE)\n\ntest.survived <- data.frame(Survived = rep(\"None\", nrow(test)), test[,])\n\ndata.combined <- rbind(train, test.survived)\n\nstr(data.combined)\n\ndata.combined$Survived <- as.factor(data.combined$Survived)\ndata.combined$Pclass <- as.factor(data.combined$Pclass)\n\n#gross survival rates\ntable(data.combined$Survived)\n\n#dist among classes\ntable(data.combined$Pclass)\n\nlibrary(ggplot2)\n\n#H0 - Upper class passengers survived at a higher rate\ntrain$Pclass <- as.factor(train$Pclass)\nstr(train)\n??ggplot2\nggplot(train, aes(x = Pclass, fill = factor(Survived))) +\n  stat_count(width = 0.5) + \n  xlab(\"Pclass\") +\n  ylab(\"Total Count\") +\n  labs(fill = \"Survived\")\n?aes\n\n\n#how many unique names across combined data sets\nlength(unique(as.character(data.combined$Name)))\n\n#2 dup names\n#first, get dup names and store as vector\ndup.names <- as.character(data.combined[which(duplicated(as.character(data.combined$Name))), \"Name\"])\n\n#second, take a look at the dups in the combined data set\ndata.combined[which(data.combined$Name %in% dup.names),]\n\nlibrary(stringr)\n\n#noticing differentiation between Miss and Mrs.  Let's see if there's some pattern there\nmisses <- data.combined[which(str_detect(data.combined$Name, \"Miss.\")),]\nmisses[1:5,]\n\n",
+    "created" : 1510964341628.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1147370899",
+    "id" : "FA7445C8",
+    "lastKnownWriteTime" : 1511470981,
+    "last_content_update" : 1511470981243,
+    "path" : "C:/Dev/kaggle/titanic/TitanicDataAnalysis.R",
+    "project_path" : "TitanicDataAnalysis.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
